@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="weatherApp">
+<head>
+    <title>Weather-Forecast App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="angular.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body ng-controller="WeatherController">
+    <div class="container">
+        <h1>Weather Forecast App</h1>
+        <input type="text" ng-model="city" placeholder="Enter city name" />
+        <button ng-click="getWeather()">Get Weather</button>
+
+        <div class="current-weather" ng-if="currentWeather">
+            <h2>{{ currentWeather.name }}</h2>
+            <p>Temperature: {{ currentWeather.main.temp }} °C</p>
+            <p>Humidity: {{ currentWeather.main.humidity }}%</p>
+            <p>Condition: {{ currentWeather.weather[0].description }}</p>
+        </div>
+
+        <h3 ng-if="forecastWeather">5-Day Forecast</h3>
+        <div class="forecast" ng-if="forecastWeather">
+            <div class="forecast-card" ng-repeat="day in forecastWeather">
+                <p><strong>{{ day.date }}</strong></p>
+                <img ng-src="https://openweathermap.org/img/wn/{{day.icon}}@2x.png" alt="Weather icon">
+                <p>{{ day.temp }} °C</p>
+                <p>{{ day.description }}</p>
+            </div>
+        </div>
+
+        <p ng-if="error" class="error">{{ error }}</p>
+    </div>
+</body>
+</html>
